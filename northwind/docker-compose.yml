@@ -1,0 +1,28 @@
+version: '3'
+
+volumes:
+    data:
+
+networks:
+    yb-nat:
+
+services:
+    ybDBv4:
+        image: ybng/mydb:v3
+        build:
+            context: ./database
+        volumes:
+        - data:/var/lib/mysql
+        networks:
+        - yb-nat
+    
+    ybappv1:
+        image: ybng/ybapp:v1
+        build:
+            context: ./server
+        environment:
+        - DB_HOST=ybDBv4
+        ports:
+        - 8080:3000
+        networks:
+        - yb-nat

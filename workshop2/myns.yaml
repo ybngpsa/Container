@@ -1,0 +1,9 @@
+#core dont just v1
+apiVersion: v1
+kind: Namespace
+metadata: 
+    name: myns
+    labels: 
+        dept: engineering
+        app: fortune
+

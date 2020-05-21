@@ -1,0 +1,54 @@
+#apiVersion: networking.k8s.io/v1beta1
+#kind: Ingress
+#metadata:
+#   name: nwapp-ing
+#   labels:
+#      app: northwind
+#   annotations:
+#      kubernetes.io/ingress.class: "nginx"
+#      nginx.ingress.kubernetes.io/rewrite-target: /$2
+# the above /$2 is to bind the second string
+#spec:
+#   rules:
+#   - host: "v1.nwapp.167.172.6.185.nip.io"
+#     http:
+#        paths:
+#        - path: /v1(/|$)(.*)
+#          backend:
+#             serviceName: nwapp-svc
+#             servicePort: 8080
+#   - host: "v2.nwapp.167.172.6.185.nip.io"
+#     http:
+#        paths:
+#        - path: /v2(/|$)(.*)
+#          backend:
+#             serviceName: nwappv2-svc
+#             servicePort: 8080
+#below is for example that app got hardcode url as above will not work for hardcode
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+   name: nwapp-ing
+   labels:
+      app: northwind
+   annotations:
+      kubernetes.io/ingress.class: "nginx"
+
+spec:
+   rules:
+   - host: "v1.nwapp.167.172.6.185.nip.io"
+     http:
+        paths:
+        - path: /
+          backend:
+             serviceName: nwapp-svc
+             servicePort: 8080
+   - host: "v2.nwapp.167.172.6.185.nip.io"
+     http:
+        paths:
+        - path: /
+          backend:
+             serviceName: nwappv2-svc
+             servicePort: 8080
+
